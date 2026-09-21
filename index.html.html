@@ -1,0 +1,819 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hightouch Enterprise Agentic Marketing - Brent LaRoche</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+            
+            :root {
+                --ht-green: #008761;
+                --ht-light-green: #E6F3F0;
+                --text-dark: #1A1A1A;
+                --text-gray: #6B7280;
+                --border-color: #E5E7EB;
+                --bg-light: #F9FAFB;
+                --white: #FFFFFF;
+            }
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--bg-light);
+                color: var(--text-dark);
+                margin: 0;
+                padding: 0;
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            .top-nav {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px 40px;
+                background-color: var(--white);
+                border-bottom: 1px solid var(--border-color);
+                position: fixed;
+                top: 0;
+                width: 100%;
+                z-index: 100;
+                box-sizing: border-box;
+            }
+
+            .logo-section {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                font-weight: 600;
+                color: var(--text-gray);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 0.85rem;
+            }
+
+            .ht-logo {
+                font-size: 1.5rem;
+                font-weight: 800;
+                color: var(--ht-green);
+                text-transform: none;
+                letter-spacing: -0.5px;
+            }
+            
+            .ht-logo span {
+                color: var(--text-dark);
+            }
+
+            .badge {
+                background-color: var(--ht-light-green);
+                color: var(--ht-green);
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .badge::before {
+                content: "●";
+                font-size: 0.6rem;
+            }
+
+            .layout-wrapper {
+                display: flex;
+                max-width: 1400px;
+                margin: 80px auto 0;
+                min-height: calc(100vh - 80px);
+            }
+
+            .sidebar {
+                width: 40%;
+                padding: 60px 40px;
+                position: sticky;
+                top: 80px;
+                height: calc(100vh - 80px);
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .main-content {
+                width: 60%;
+                padding: 60px 40px;
+                box-sizing: border-box;
+            }
+
+            .eyebrow {
+                color: var(--ht-green);
+                font-weight: 600;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .eyebrow::before {
+                content: "—";
+                letter-spacing: -2px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+                line-height: 1.1;
+                margin: 0 0 30px 0;
+                font-weight: 800;
+                letter-spacing: -1px;
+            }
+
+            h1 span {
+                color: var(--ht-green);
+            }
+
+            .intro-text {
+                font-size: 1.2rem;
+                color: var(--text-gray);
+                margin-bottom: 40px;
+                font-weight: 300;
+            }
+
+            .author-box {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 40px;
+            }
+
+            .author-avatar {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: var(--ht-light-green);
+                color: var(--ht-green);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                border: 1px solid var(--ht-green);
+            }
+
+            .author-details {
+                font-size: 0.8rem;
+                color: var(--text-gray);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-weight: 600;
+            }
+            
+            .author-details strong {
+                display: block;
+                color: var(--text-dark);
+                font-size: 1.1rem;
+                text-transform: none;
+                letter-spacing: 0;
+            }
+
+            .nav-menu {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                margin-top: auto;
+                padding-bottom: 40px;
+            }
+
+            .nav-item {
+                padding: 18px 20px;
+                background: var(--white);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-decoration: none;
+                color: var(--text-dark);
+                font-weight: 600;
+            }
+
+            .nav-item:hover, .nav-item.active {
+                border-color: var(--ht-green);
+                box-shadow: 0 4px 12px rgba(0, 135, 97, 0.1);
+            }
+
+            .nav-item span {
+                color: var(--text-gray);
+                font-weight: 400;
+                font-size: 0.85rem;
+                display: block;
+            }
+            
+            .nav-item .arrow {
+                color: var(--ht-green);
+                font-weight: bold;
+            }
+
+            /* Playbook Styles */
+            .playbook-section {
+                background: var(--white);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 50px;
+                margin-bottom: 60px;
+                box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+                scroll-margin-top: 100px;
+            }
+
+            .brand-header {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                margin-bottom: 40px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .brand-logo {
+                width: 60px;
+                height: 60px;
+                border-radius: 12px;
+                object-fit: contain;
+                background: #fff;
+                padding: 10px;
+                border: 1px solid var(--border-color);
+                box-sizing: border-box;
+            }
+
+            .brand-title {
+                margin: 0;
+                font-size: 2rem;
+                letter-spacing: -0.5px;
+            }
+
+            .brand-subtitle {
+                color: var(--text-gray);
+                font-size: 1rem;
+                margin: 0;
+            }
+
+            .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+                margin-bottom: 40px;
+            }
+
+            .info-box {
+                background: var(--bg-light);
+                padding: 25px;
+                border-radius: 12px;
+                border: 1px solid var(--border-color);
+            }
+            
+            .info-box.highlight {
+                background: var(--ht-light-green);
+                border-color: var(--ht-green);
+            }
+
+            .info-box h3 {
+                margin-top: 0;
+                font-size: 1.1rem;
+                color: var(--text-dark);
+            }
+            
+            .info-box.highlight h3 {
+                color: var(--ht-green);
+            }
+
+            .metric {
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: var(--ht-green);
+                margin: 10px 0;
+                line-height: 1;
+            }
+            
+            .metric.alert { color: #E11D48; }
+
+            .architecture-bar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: var(--bg-light);
+                padding: 20px;
+                border-radius: 12px;
+                border: 1px dashed #D1D5DB;
+                margin: 30px 0;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            .arch-node {
+                flex: 1;
+                font-size: 0.95rem;
+            }
+            
+            .arch-node span {
+                display: block;
+                font-size: 0.8rem;
+                color: var(--text-gray);
+                font-weight: 400;
+                margin-top: 4px;
+            }
+
+            .arch-arrow {
+                color: var(--ht-green);
+                font-weight: bold;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 30px;
+                font-size: 0.95rem;
+            }
+            
+            th, td {
+                padding: 16px;
+                border-bottom: 1px solid var(--border-color);
+                text-align: left;
+                vertical-align: top;
+            }
+            
+            th {
+                width: 20%;
+                color: var(--text-dark);
+                font-weight: 700;
+                background: var(--bg-light);
+            }
+            
+            td {
+                color: var(--text-gray);
+            }
+            
+            td strong {
+                color: var(--text-dark);
+            }
+            
+            a.linkedin-link {
+                color: #0A66C2;
+                text-decoration: none;
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+            }
+            
+            a.linkedin-link:hover {
+                text-decoration: underline;
+            }
+            
+            a.linkedin-link::after {
+                content: "in";
+                background: #0A66C2;
+                color: white;
+                font-size: 0.6rem;
+                padding: 1px 3px;
+                border-radius: 2px;
+                font-weight: bold;
+            }
+
+            .cadence-timeline {
+                border-left: 2px solid var(--ht-green);
+                margin-top: 25px;
+                padding-left: 20px;
+            }
+
+            .touchpoint {
+                position: relative;
+                margin-bottom: 25px;
+            }
+
+            .touchpoint::before {
+                content: "";
+                position: absolute;
+                left: -27px;
+                top: 5px;
+                width: 12px;
+                height: 12px;
+                background: var(--ht-green);
+                border-radius: 50%;
+            }
+
+            .touchpoint h4 {
+                margin: 0 0 5px 0;
+                color: var(--text-dark);
+            }
+
+            .touchpoint p {
+                margin: 0;
+                font-size: 0.9rem;
+                color: var(--text-gray);
+            }
+
+            /* Mobile Responsiveness */
+            @media (max-width: 900px) {
+                .top-nav {
+                    flex-direction: column;
+                    gap: 10px;
+                    padding: 15px 20px;
+                    text-align: center;
+                }
+                .layout-wrapper {
+                    flex-direction: column;
+                    margin-top: 90px;
+                }
+                .sidebar {
+                    width: 100%;
+                    height: auto;
+                    position: relative;
+                    top: 0;
+                    padding: 40px 20px 20px 20px;
+                }
+                h1 {
+                    font-size: 2.8rem;
+                }
+                .main-content {
+                    width: 100%;
+                    padding: 20px;
+                }
+                .grid-2 {
+                    grid-template-columns: 1fr;
+                }
+                .playbook-section {
+                    padding: 30px 20px;
+                }
+                .architecture-bar {
+                    flex-direction: column;
+                    gap: 15px;
+                }
+                .arch-arrow {
+                    transform: rotate(90deg);
+                }
+                table, thead, tbody, th, td, tr {
+                    display: block;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                th {
+                    padding-bottom: 5px;
+                    border-bottom: none;
+                }
+                td {
+                    padding-top: 0;
+                    margin-bottom: 15px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top-nav">
+            <div class="logo-section">
+                <div class="ht-logo">high<span>touch</span></div>
+                | ENTERPRISE AGENTIC MARKETING
+            </div>
+            <div class="badge">Prepared for Vinod Venkatasubramanian</div>
+        </div>
+
+        <div class="layout-wrapper">
+            <div class="sidebar">
+                <div class="eyebrow">No death by PowerPoint from me</div>
+                <h1>Five brands.<br>Five growth<br><span>opportunities.</span></h1>
+                
+                <div class="intro-text">
+                    My GTM approach.<br>
+                    Their priorities. A measurable first win.
+                </div>
+                
+                <div class="author-box">
+                    <div class="author-avatar">BL</div>
+                    <div class="author-details">
+                        Prepared by
+                        <strong>Brent LaRoche</strong>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-gray); margin-bottom: 30px; font-size: 0.95rem;">
+                    The assignment: develop an enterprise go-to-market point of view for five accounts: understand each brand's priorities, recommend one practical starting point, and define how to prove value.
+                </p>
+
+                <div class="nav-menu">
+                    <a href="#columbia" class="nav-item">
+                        <div>
+                            Columbia Sportswear
+                            <span>Apparel & E-commerce</span>
+                        </div>
+                        <div class="arrow">↗</div>
+                    </a>
+                    <a href="#chipotle" class="nav-item">
+                        <div>
+                            Chipotle Mexican Grill
+                            <span>Retail & QSR</span>
+                        </div>
+                        <div class="arrow">↗</div>
+                    </a>
+                    <a href="#mgm" class="nav-item">
+                        <div>
+                            MGM Resorts International
+                            <span>Hospitality & Gaming</span>
+                        </div>
+                        <div class="arrow">↗</div>
+                    </a>
+                    <a href="#alaska" class="nav-item">
+                        <div>
+                            Alaska Airlines
+                            <span>Travel & Transportation</span>
+                        </div>
+                        <div class="arrow">↗</div>
+                    </a>
+                    <a href="#lafitness" class="nav-item">
+                        <div>
+                            LA Fitness
+                            <span>Health & Fitness</span>
+                        </div>
+                        <div class="arrow">↗</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="main-content">
+                
+                <!-- COLUMBIA -->
+                <div id="columbia" class="playbook-section">
+                    <div class="brand-header">
+                        <img src="https://www.google.com/s2/favicons?domain=columbia.com&sz=128" alt="Columbia" class="brand-logo" onerror="this.src='https://via.placeholder.com/60?text=COL'">
+                        <div>
+                            <h2 class="brand-title">Columbia Sportswear</h2>
+                            <p class="brand-subtitle">Transforming Wholesale Dependency into DTC Excellence</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="info-box">
+                            <h3>The Business Reality</h3>
+                            <div class="metric alert">3.9%</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">5-Year Annual Revenue Growth</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Pain:</strong> Stagnant revenue and weak free cash flow (8.5%). Over-reliant on consolidating wholesale partners. They need explosive DTC growth.</p>
+                        </div>
+                        <div class="info-box highlight">
+                            <h3>The Technical Reality</h3>
+                            <div class="metric">Data Lake</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Azure Databricks / Iceberg</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Opportunity:</strong> They recently modernized their lakehouse (reducing ETL from hours to minutes), but marketing still lacks self-serve, real-time context.</p>
+                        </div>
+                    </div>
+
+                    <div class="architecture-bar">
+                        <div class="arch-node">Databricks Lakehouse<span>System of Record</span></div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-node" style="color: var(--ht-green);">Hightouch AMP<span>Marketing Context Layer</span></div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-node">DTC Ad Channels<span>TikTok, Meta, Email</span></div>
+                    </div>
+
+                    <h3 style="margin-top: 40px;">Deep Dive: MEDDPICC Execution</h3>
+                    <table>
+                        <tr>
+                            <th>Metrics</th>
+                            <td>Increase DTC digital revenue by 15%. Decrease excess inventory overhang to improve ROIC. Reduce audience build time from days to minutes.</td>
+                        </tr>
+                        <tr>
+                            <th>E. Buyer</th>
+                            <td>
+                                <a href="https://www.linkedin.com/search/results/people/?keywords=Michael+Hirt+Columbia+Sportswear" target="_blank" class="linkedin-link">Michael Hirt</a> (CIO, Data Budget) & <br>
+                                <a href="https://www.linkedin.com/search/results/people/?keywords=Matt+Sutton+Columbia+Sportswear" target="_blank" class="linkedin-link">Matt Sutton</a> (SVP/Head of Marketing, MarTech Budget)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Champion</th>
+                            <td>
+                                <a href="https://www.linkedin.com/search/results/people/?keywords=Lara+Minor+Columbia+Sportswear" target="_blank" class="linkedin-link">Lara Minor</a> (Director Global Data And Analytics Engineering) — she feels the pain of custom pipeline requests.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Decision Process</th>
+                            <td>Technical validation (Data Engineering) → Marketing POC (Growth Team) → Security/Legal Review → Procurement.</td>
+                        </tr>
+                    </table>
+
+                    <h3 style="margin-top: 40px;">Multi-Threaded Outreach Cadence (Columbia)</h3>
+                    <p style="color: var(--text-gray); font-size: 0.95rem;">Focus: Consultative value delivery. Never "checking in." Leveraging their specific Databricks migration as the wedge.</p>
+                    
+                    <div class="cadence-timeline">
+                        <div class="touchpoint">
+                            <h4>Day 1: The Infrastructure Wedge (to CIO & Champion)</h4>
+                            <p><strong>Message:</strong> "Michael / Lara - following your recent Azure Databricks migration. Data latency is solved, but last-mile activation to the DTC marketing stack remains a bottleneck. Hightouch deploys directly on Databricks to give marketing self-serve audiences without creating a secondary data silo."</p>
+                        </div>
+                        <div class="touchpoint">
+                            <h4>Day 4: The Revenue Wedge (to CMO)</h4>
+                            <p><strong>Message:</strong> "Matt - incredible work on the recent Cannes Lions campaigns. To flatten the 3.9% stagnant growth, your team needs real-time behavioral data to convert those campaign clicks. Hightouch unlocks the data trapped in IT so your team can deploy agentic marketing workflows (e.g., automated inventory clearance) in real-time."</p>
+                        </div>
+                        <div class="touchpoint">
+                            <h4>Day 8: Cross-Pollination (LinkedIn/Social)</h4>
+                            <p><strong>Action:</strong> Engage with Lara Minor's and Matt Sutton's LinkedIn content. Share a relevant case study (e.g., how another retailer used Hightouch + Databricks to reduce CAC) and tag them subtly with a valuable insight.</p>
+                        </div>
+                        <div class="touchpoint">
+                            <h4>Day 14: The ROI Provocation (Video/Audio Note to All)</h4>
+                            <p><strong>Message:</strong> 60-second personalized video showing a mock architecture of Columbia's stack. "By eliminating redundant CDP storage fees and utilizing your existing Iceberg tables, we can typically fund this platform through cost-savings alone before we even look at the DTC revenue lift."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHIPOTLE -->
+                <div id="chipotle" class="playbook-section">
+                    <div class="brand-header">
+                        <img src="https://www.google.com/s2/favicons?domain=chipotle.com&sz=128" alt="Chipotle" class="brand-logo" onerror="this.src='https://via.placeholder.com/60?text=CHIP'">
+                        <div>
+                            <h2 class="brand-title">Chipotle Mexican Grill</h2>
+                            <p class="brand-subtitle">Scaling Digital Personalization for 30M+ Rewards Members</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="info-box">
+                            <h3>The Business Reality</h3>
+                            <div class="metric alert">Frequency</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">The Core Growth Lever</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Pain:</strong> 30M+ Rewards members, but generic batch-and-blast marketing leaves money on the table. They need to move light users to medium, and medium to heavy.</p>
+                        </div>
+                        <div class="info-box highlight">
+                            <h3>The Technical Reality</h3>
+                            <div class="metric">Snowflake</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Cloud Data Foundation</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Opportunity:</strong> Rich transactional data sits in Snowflake, but marketing can't activate it in real-time for push notifications.</p>
+                        </div>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th>Metrics</th>
+                            <td>Lift in visit frequency (+0.5 visits/month). Increase in digital order margin.</td>
+                        </tr>
+                        <tr>
+                            <th>E. Buyer</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=Curt+Garner+Chipotle" target="_blank" class="linkedin-link">Curt Garner</a> (President, Chief Strategy and Technology Officer)</td>
+                        </tr>
+                        <tr>
+                            <th>Champion</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=VP+Digital+Marketing+Chipotle" target="_blank" class="linkedin-link">VP of Digital Marketing</a> / Director of Loyalty</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- MGM -->
+                <div id="mgm" class="playbook-section">
+                    <div class="brand-header">
+                        <img src="https://www.google.com/s2/favicons?domain=mgmresorts.com&sz=128" alt="MGM" class="brand-logo" onerror="this.src='https://via.placeholder.com/60?text=MGM'">
+                        <div>
+                            <h2 class="brand-title">MGM Resorts</h2>
+                            <p class="brand-subtitle">Unifying the Omni-Channel VIP Experience</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="info-box">
+                            <h3>The Business Reality</h3>
+                            <div class="metric alert">Silos</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Physical vs. Digital</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Pain:</strong> Disconnect between on-property spend and BetMGM digital gaming. A high roller online isn't getting recognized at the physical front desk instantly.</p>
+                        </div>
+                        <div class="info-box highlight">
+                            <h3>The Technical Reality</h3>
+                            <div class="metric">Identity</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Complex Resolution</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Opportunity:</strong> Give marketing the power to define deterministic and probabilistic matching rules visually, rather than waiting on data engineering.</p>
+                        </div>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th>Metrics</th>
+                            <td>Increase in cross-sell revenue (BetMGM to on-property). Reduced customer churn among Tier-1 VIPs.</td>
+                        </tr>
+                        <tr>
+                            <th>E. Buyer</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=Max+Tappeiner+MGM" target="_blank" class="linkedin-link">Max Tappeiner</a> (SVP Operations)</td>
+                        </tr>
+                        <tr>
+                            <th>Champion</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=Amanda+Voss+MGM" target="_blank" class="linkedin-link">Amanda Voss</a> (VP of Sales) / VP MGM Rewards</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- ALASKA -->
+                <div id="alaska" class="playbook-section">
+                    <div class="brand-header">
+                        <img src="https://www.google.com/s2/favicons?domain=alaskaair.com&sz=128" alt="Alaska" class="brand-logo" onerror="this.src='https://via.placeholder.com/60?text=ALK'">
+                        <div>
+                            <h2 class="brand-title">Alaska Airlines</h2>
+                            <p class="brand-subtitle">Maximizing Yield and Co-Brand Card Acquisition</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="info-box">
+                            <h3>The Business Reality</h3>
+                            <div class="metric alert">Yield</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Ancillary Revenue Focus</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Pain:</strong> Leaving money on the table with static upgrade offers. Need dynamic pricing and aggressive acquisition for the Visa Signature card.</p>
+                        </div>
+                        <div class="info-box highlight">
+                            <h3>The Technical Reality</h3>
+                            <div class="metric">AWS</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Data Ecosystem</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Opportunity:</strong> Leverage existing flight search behavior and historical flight data to predict upgrade likelihood without duplicating data.</p>
+                        </div>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th>Metrics</th>
+                            <td>Lift in co-branded credit card applications. Increase in paid first-class upgrades pre-check-in.</td>
+                        </tr>
+                        <tr>
+                            <th>E. Buyer</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=Eric+Edge+Alaska+Airlines" target="_blank" class="linkedin-link">Eric Edge</a> (Managing Director, Marketing / CMO)</td>
+                        </tr>
+                        <tr>
+                            <th>Champion</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=VP+Mileage+Plan+Alaska+Airlines" target="_blank" class="linkedin-link">VP of Mileage Plan</a></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- LA FITNESS -->
+                <div id="lafitness" class="playbook-section" style="margin-bottom: 0;">
+                    <div class="brand-header">
+                        <img src="https://www.google.com/s2/favicons?domain=lafitness.com&sz=128" alt="LA Fitness" class="brand-logo" onerror="this.src='https://via.placeholder.com/60?text=LAF'">
+                        <div>
+                            <h2 class="brand-title">LA Fitness</h2>
+                            <p class="brand-subtitle">Predictive Churn Prevention and Upsell</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="info-box">
+                            <h3>The Business Reality</h3>
+                            <div class="metric alert">Churn</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Subscription Retention</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Pain:</strong> Quiet cancellations hurt ARR. Identifying when a member's habit breaks is critical to saving the account.</p>
+                        </div>
+                        <div class="info-box highlight">
+                            <h3>The Technical Reality</h3>
+                            <div class="metric">Events</div>
+                            <p style="margin: 0; color: var(--text-gray); font-size: 0.9rem;">Check-in Telemetry</p>
+                            <p style="margin-top: 15px; font-size: 0.9rem;"><strong>The Opportunity:</strong> Facility check-in data and app usage is highly predictive. Marketing needs this data fed into their CRM instantly when usage drops.</p>
+                        </div>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th>Metrics</th>
+                            <td>Reduction in monthly member churn by 2%. Increase in Personal Training attach rate.</td>
+                        </tr>
+                        <tr>
+                            <th>E. Buyer</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=Michael+Ulibarri+LA+Fitness" target="_blank" class="linkedin-link">Michael Ulibarri</a> (Sr. Executive VP - Sales and Marketing)</td>
+                        </tr>
+                        <tr>
+                            <th>Champion</th>
+                            <td><a href="https://www.linkedin.com/search/results/people/?keywords=Andrea+Ojeda+LA+Fitness" target="_blank" class="linkedin-link">Andrea Ojeda</a> (VP Marketing)</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        
+        <script>
+            // Simple active state toggling for sidebar based on scroll position
+            document.addEventListener("DOMContentLoaded", function() {
+                const sections = document.querySelectorAll(".playbook-section");
+                const navItems = document.querySelectorAll(".nav-item");
+
+                window.addEventListener("scroll", () => {
+                    let current = "";
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (scrollY >= sectionTop - 150) {
+                            current = section.getAttribute("id");
+                        }
+                    });
+
+                    navItems.forEach(item => {
+                        item.classList.remove("active");
+                        if (item.getAttribute("href").includes(current)) {
+                            item.classList.add("active");
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>
+    
